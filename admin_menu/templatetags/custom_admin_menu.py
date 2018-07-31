@@ -131,11 +131,7 @@ def get_admin_menu(context):
     request = context['request']
     apps = get_app_list(context, True)
 
-    menu = OrderedDict({
-        _('Dashboard'): make_menu_group(_('Dashboard'), weight=1, children=[
-            make_menu_item(reverse('admin:index'), _('Dashboard'), weight=0)
-        ])
-    })
+    menu = OrderedDict()
 
     for app in apps:
         if not app['has_module_perms']:
