@@ -71,7 +71,7 @@ def get_app_list(context, order=True):
                     'perms': perms,
                     'model_admin': model_admin,
                 }
-                if perms.get('change', False):
+                if perms.get('view', False) or perms.get('change', False):
                     try:
                         model_dict['admin_url'] = reverse('admin:%s_%s_changelist' % info, current_app=admin_site.name)
                     except NoReverseMatch:
@@ -138,7 +138,7 @@ def get_admin_menu(context):
             continue
 
         for model in app['models']:
-            if not model['perms']['change']:
+            if not (model['perms'].get('view', False) or model['perms']['change']):
                 continue
 
             model_admin = model['model_admin']
